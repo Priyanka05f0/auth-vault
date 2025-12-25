@@ -39,7 +39,7 @@ High-level interaction flow:
 +-----------------------+
 | AuthorizationManager  |
 +-----------------------+
-
+```
 
 The SecureVault delegates authorization checks to the AuthorizationManager
 before executing any withdrawal.
