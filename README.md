@@ -11,16 +11,26 @@ and asset custody, with strong replay protection guarantees.
 ## Architecture
 The system consists of two core smart contracts:
 
-- **AuthorizationManager**  
-  Responsible for validating withdrawal permissions and enforcing single-use
-  authorization consumption.
-
-- **SecureVault**  
-  Holds pooled funds and executes withdrawals only after approval from the
-  AuthorizationManager.
+- **AuthorizationManager**: validates and consumes withdrawal authorizations
+- **SecureVault**: holds funds and executes withdrawals only after authorization approval
 
 The SecureVault does not perform cryptographic verification directly and relies
 entirely on AuthorizationManager for authorization decisions.
+
+## Architecture Diagram
+
+High-level interaction flow:
+
+User / Script
+|
+v
+SecureVault
+|
+v
+AuthorizationManager
+
+The SecureVault delegates authorization checks to the AuthorizationManager
+before executing any withdrawal.
 
 ## Deployment
 The system is deployed locally using Docker and docker-compose.
@@ -59,7 +69,7 @@ revert, preventing replay attacks and duplicated withdrawals.
 2. An off-chain authorization is generated with tightly scoped parameters
 3. The authorization is submitted as part of a withdrawal request
 4. AuthorizationManager validates and consumes the authorization
-5. SecureVault updates internal state and releases funds to the recipient
+5. SecureVault updates internal state and releases funds
 6. Reuse of the same authorization fails deterministically
 
 ## Assumptions
