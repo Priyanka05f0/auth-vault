@@ -21,13 +21,25 @@ entirely on AuthorizationManager for authorization decisions.
 
 High-level interaction flow:
 
-User / Script
-|
-v
-SecureVault
-|
-v
-AuthorizationManager
+## Architecture Diagram
+
+High-level interaction flow:
+
+```text
++---------------+
+| User / Script |
++---------------+
+        |
+        v
++--------------+
+| SecureVault  |
++--------------+
+        |
+        v
++-----------------------+
+| AuthorizationManager  |
++-----------------------+
+
 
 The SecureVault delegates authorization checks to the AuthorizationManager
 before executing any withdrawal.
